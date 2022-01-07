@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: acapyservice
+  name: acapyservice
+  namespace: acapy
+spec:
+  ports:
+  - name: httpinbound
+    port: 8000
+    protocol: TCP
+  - name: httpadmin
+    port: 8080
+    protocol: TCP
+  selector:
+    app: acapypod

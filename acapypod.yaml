@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: acapypod
+  name: acapypod
+  namespace: acapy
+spec:
+  selector:
+    matchLabels:
+      app: acapypod
+  template:
+    metadata:
+      labels:
+        app: acapypod
+    spec:
+      containers:
+      - envFrom:
+        - configMapRef:
+            name: acapyconfig
+        command:
+          - bash
+          - -c
+          - $(echo aca-py start
+            --inbound-transport http ${ACAPY_HTTP_HOST} ${ACAPY_HTTP_PORT}
+            --endpoint ${ACAPY_ENDPOINT}
+            --outbound-transport http
+            --admin ${ACAPY_ADMIN_HOST} ${ACAPY_ADMIN_PORT}
+            --genesis-url ${GENESIS_URL}
+            --wallet-type indy
+            --wallet-name ${WALLET_NAME}
+            --wallet-key ${WALLET_KEY}
+            --wallet-storage-type postgres_storage
+            --wallet-storage-config ${WALLET_STORAGE_CONFIG}
+            --wallet-storage-creds ${WALLET_STORAGE_CREDS}
+            --tails-server-base-url ${TAIL_SERVER_BASE_URL}
+            --seed ${SEED}
+            --admin-insecure-mode
+            --label ${LABEL}
+            --log-level debug
+            --no-receive-invites
+            --help-link http://ontario.ca/
+            --storage-type indy
+            --auto-ping-connection
+            --image-url https://www.ontario.ca/img/ontario@2x.png
+            --multitenant
+            --multitenant-admin
+            --jwt-secret 12345678
+            --max-message-size 10485760);
+        image: 172.30.1.1:5000/acapy/build-acapy:latest
+        imagePullPolicy: Always
+        name: acapypod
+        ports:
+        - containerPort: 8000
+          protocol: TCP
+        - containerPort: 8080
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 60m
+            memory: 512Mi
+          requests:
+            cpu: 30m
+            memory: 128Mi
+      hostname: acapy
+      restartPolicy: Always

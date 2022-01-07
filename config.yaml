@@ -1,0 +1,18 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: acapyconfig
+data:
+  ACAPY_HTTP_HOST: "0.0.0.0"
+  ACAPY_HTTP_PORT: "8000"
+  ACAPY_ENDPOINT: "http://52.183.112.168:8000"
+  ACAPY_ADMIN_PORT: "8080"
+  ACAPY_ADMIN_HOST: "52.183.112.168"
+  GENESIS_URL: "http://20.69.167.37:9000/genesis"
+  WALLET_NAME: "ACAPYWallet"
+  WALLET_KEY: "Secretkey"
+  WALLET_STORAGE_CONFIG: "{\"url\":\"postgresindy.postgres.database.azure.com:5432\",\"wallet_scheme\":\"DatabasePerWallet\"}"
+  WALLET_STORAGE_CREDS: "{\"account\":\"postgres@postgresindy\",\"password\":\"pgsql@123\",\"admin_account\":\"postgres@postgresindy\",\"admin_password\":\"pgsql@123\"}"
+  TAIL_SERVER_BASE_URL: "52.183.112.168"
+  SEED: "100A000000300000c0000CANTrustee1"
+  LABEL: "ODS_SSI_AGENT"
